@@ -72,8 +72,19 @@ function changeZoom(newZoomLevel) {
     if (zoom + incr == newZoomLevel) {
         clearInterval(this.timer);
     }
-}
+};
 
-this.timer = setInterval(function () {
-    changeZoom(14);
-}, 300);
+function zoomIn() {
+    this.timer = setInterval(function () {
+        changeZoom(14);
+    }, 300);
+};
+
+function zoomOut() {
+    this.timer = setInterval(function () {
+        changeZoom(7);
+    }, 300);
+};
+
+
+window.setTimeout(goToCoruna, 3000);
