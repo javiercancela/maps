@@ -1,0 +1,16 @@
+[
+    {
+      "id": 1,
+      "name": "A Coruña",
+      "position":  {"lat": 43.362174, "lng": -8.414679 },
+      "codProv": 15,
+      "zoom": 15
+    },
+    {
+      "id": 2,
+      "name": "Madrid",
+      "position":  {"lat": 40.416719, "lng": -3.703484 },
+      "codProv": 27,
+      "zoom": 14
+    }
+ ]

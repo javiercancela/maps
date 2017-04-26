@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "name": "Zara Superco",
+      "position":  {"lat": 43.354540, "lng": -8.402557 },
+      "codProv": 15
+    },
+    {
+      "id": 2,
+      "name": "Zara Marineda",
+      "position":  {"lat":  43.345035, "lng": -8.426509 },
+      "codProv": 15
+    },
+    {
+      "id": 3,
+      "name": "Zara Compostela",
+      "position":  {"lat": 43.366143, "lng": -8.405260 },
+      "codProv": 15
+    },
+    {
+      "id": 4,
+      "name": "Zara Serrano",
+      "position":  {"lat": 40.426318, "lng":  -3.687716 },
+      "codProv": 27
+    }
+ ]
