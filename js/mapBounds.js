@@ -1,4 +1,6 @@
 var bounds = [];
+var step = 1;
+const totalSteps = 5;
 
 $.getJSON('json/bounds.json', cargaBounds).done(initMap);
 
@@ -10,40 +12,78 @@ function cargaBounds(json) {
 
 
 function initMap() {
-    const northEastLat = 43.362174;
-    const northEastLng = -8.414679;
-    const southWestLat = 36.264384;
-    const southWestLng = 0.753471;
-
-    ne = new google.maps.LatLng({
-        lat: northEastLat,
-        lng: northEastLng
-    });
-    sw = new google.maps.LatLng({
-        lat: southWestLat,
-        lng: southWestLng
-    });
-
     map = new google.maps.Map(document.getElementById('map'), {
         disableDefaultUI: true,        
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
 
-    initialBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(36.264384,0.753471),
-        new google.maps.LatLng(43.362174, -8.414679)
-    );
 
-
-    map.fitBounds({ initialBounds });
+    map.fitBounds({
+      east: 121.803980,
+      north: 70.293986,
+      south: -47.088287,
+      west: -167.795973
+    });
 };
 
-function changeBounds(bounds) {
-/*map.fitBounds({
-      east: bounds.northEastLng,
-      north: bounds.northEastLat,
-      south: bounds.southWestLat,
-      west: bounds.southWestLng
-    });    */
+function calculateStepBounds(coor1, coor0) {
+    return coor1 + (coor0 - coor1) * step /totalSteps;
+}
+
+function calculateBounds() {
+    var stepBound =     {
+      "northEast":  {
+          "lat": calculateStepBounds(bounds[1].northEast.lat, bounds[0].northEast.lat),
+          "lng": calculateStepBounds(bounds[1].northEast.lng, bounds[0].northEast.lng)
+        },
+      "southWest":  {
+          "lat": calculateStepBounds(bounds[1].southWest.lat, bounds[0].southWest.lat),
+          "lng": calculateStepBounds(bounds[1].southWest.lng, bounds[0].southWest.lng)
+        }
+    };
+
+    return stepBound;
+}
+
+function changeBounds() {
+
+/*    if (step == totalSteps) {
+        clearInterval(this.timer);
+        return;
+    }
+
+    var stepBound = calculateBounds();*/
+    step++;
+    const idx = (step % 12);
+    bound = bounds[idx];
+
+    map.fitBounds({
+      east: bound.northEast.lng,
+      north: bound.northEast.lat,
+      south: bound.southWest.lat,
+      west: bound.southWest.lng
+    });    
+/*
+    var ne = new google.maps.LatLng({
+        lat: stepBound.northEast.lat,
+        lng: stepBound.northEast.lng
+    });
+    var sw = new google.maps.LatLng({
+        lat: stepBound.southWest.lat,
+        lng: stepBound.southWest.lng
+    });
+
+    var marker1 = new google.maps.Marker({
+          position: ne,
+          map: map
+        });
+    var marker2 = new google.maps.Marker({
+          position: sw,
+          map: map
+        });*/
 };
+
+this.timer = setInterval(function () {
+    changeBounds()
+}, 4000);
 
